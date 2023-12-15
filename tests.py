@@ -7,7 +7,7 @@ class TestBooksCollector:
     # пример теста:
     # обязательно указывать префикс test_
     # дальше идет название метода, который тестируем add_new_book_
-    # затем, что тестируем add_two_books - добавление двух книг
+    # затем что тестируем add_two_books - добавление двух книг
     def test_add_new_book_add_two_books(self):
         # создаем экземпляр (объект) класса BooksCollector
         collector = BooksCollector()
