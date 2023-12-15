@@ -6,7 +6,6 @@ from main import BooksCollector
 # обязательно указывать префикс Test
 class TestBooksCollector:
 
-
    # пример теста:
    # обязательно указывать префикс test_
    # дальше идет название метода, который тестируем add_new_book_
