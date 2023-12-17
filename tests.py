@@ -15,15 +15,12 @@ class TestBooksCollector:
        # создаем экземпляр (объект) класса BooksCollector
        collector = BooksCollector()
 
-
        # добавляем две книги
        collector.add_new_book('Гордость и предубеждение и зомби')
        collector.add_new_book('Что делать, если ваш кот хочет вас убить')
 
-
        # проверяем, что добавилось именно две
-       # словарь books_rating, который нам возвращает метод get_books_rating, имеет длину 2
-       assert len(collector.books_genre) == 2
+       assert len(collector.get_books_genre()) == 2
 
 
    # напиши свои тесты ниже
@@ -38,10 +35,10 @@ class TestBooksCollector:
        collector.set_book_genre('Гордость и предубеждение и зомби','Фантастика')
        collector.set_book_genre('Что делать, если ваш кот хочет вас убить','Ужасы')
        # проверяем жанры книг по названию
-       assert 'Гордость и предубеждение и зомби' in collector.books_genre.keys()
-       assert 'Что делать, если ваш кот хочет вас убить' in collector.books_genre.keys()
-       assert 'Фантастика' in collector.books_genre.values()
-       assert 'Ужасы' in collector.books_genre.values()
+       assert 'Гордость и предубеждение и зомби' in collector.get_books_with_specific_genre('Фантастика')
+       assert 'Что делать, если ваш кот хочет вас убить' in collector.get_books_with_specific_genre('Ужасы')
+       assert 'Фантастика' == collector.get_book_genre('Гордость и предубеждение и зомби')
+       assert 'Ужасы' == collector.get_book_genre('Что делать, если ваш кот хочет вас убить')
 
 
    @pytest.mark.parametrize("name, genre", [['Гордость и предубеждение и зомби', 'Фантастика'],['Что делать, если ваш кот хочет вас убить', 'Ужасы']])
@@ -53,7 +50,7 @@ class TestBooksCollector:
        # добавляем две книги  с жанрами
        collector.set_book_genre(name, genre)
        # проверяем жанры книг по названию
-       assert collector.books_genre[name] == genre
+       assert collector.get_book_genre(name) == genre
 
 
    def test_get_books_with_specific_genre(self):
@@ -81,10 +78,10 @@ class TestBooksCollector:
        collector.set_book_genre('Гордость и предубеждение и зомби', 'Фантастика')
        collector.set_book_genre('Самая длинная книга для проверки длины текста свыше сорока одного символа', 'Детективы')
        # проверяем жанры книг по названию
-       assert 'Гордость и предубеждение и зомби' in collector.books_genre.keys()
-       assert 'Самая длинная книга для проверки длины текста свыше сорока одного символа' not in collector.books_genre.keys()
-       assert 'Фантастика' in collector.books_genre.values()
-       assert 'Детективы' not in collector.books_genre.values()
+       assert 'Гордость и предубеждение и зомби' in collector.get_books_with_specific_genre('Фантастика')
+       assert 'Самая длинная книга для проверки длины текста свыше сорока одного символа' not in collector.get_books_with_specific_genre('Детективы')
+       assert 'Фантастика' == collector.get_book_genre('Гордость и предубеждение и зомби')
+       assert 'Детективы' != collector.get_book_genre('Самая длинная книга для проверки длины текста свыше сорока одного символа')
 
 
    def test_get_books_for_children(self):
@@ -114,7 +111,7 @@ class TestBooksCollector:
        collector.add_book_in_favorites('Гордость и предубеждение и зомби')
        collector.add_book_in_favorites('Не детская книжка')
        # Проверяем, что 2 книги добавились в избранное
-       assert len(collector.favorites) == 2
+       assert len(collector.get_list_of_favorites_books()) == 2
 
 
    def test_delete_book_from_favorites(self):
@@ -129,7 +126,7 @@ class TestBooksCollector:
        # удаляем одну из книг
        collector.delete_book_from_favorites('Не детская книжка')
        # проверяем, что книга удалена
-       assert 'Не детская книжка' not in collector.favorites
+       assert 'Не детская книжка' not in collector.get_list_of_favorites_books()
 
 
    def test_get_list_of_favorites_books(self):
@@ -143,4 +140,4 @@ class TestBooksCollector:
        collector.add_book_in_favorites('Не детская книжка')
        # удаляем одну из книг
        collector.delete_book_from_favorites('Не детская книжка')
-       assert 'Гордость и предубеждение и зомби' in collector.favorites
+       assert 'Гордость и предубеждение и зомби' in collector.get_list_of_favorites_books()
